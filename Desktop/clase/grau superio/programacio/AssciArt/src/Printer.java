@@ -67,6 +67,7 @@ public class Printer {
                 Result += "\n";
             }
         }
+        System.out.println(Result);
         return Result;
     }
 }
