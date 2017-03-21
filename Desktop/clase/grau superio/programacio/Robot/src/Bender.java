@@ -7,8 +7,6 @@ class Bender {
     char[][] mapa;
     int PosicioXx=0;
     int PosicioXy=0;
-//    int Posicio$x=0;
-//    int Posicio$y=0;
     int PosicioIx=0;
     int PosicioIy=0;
     int PosicioT1x=0;
@@ -67,7 +65,6 @@ class Bender {
                 llista=false;
                 Onanar=RenovaLlista(llista);
             }
-
             //Comprovam si es el velor $
             if(mapa[PosicioXx][PosicioXy]=='$'){
                 break;
@@ -155,10 +152,6 @@ class Bender {
                     PosicioXx=i;
                     PosicioXy=j;
                 }
-//                if(mapa[i][j]=='$'){
-//                    Posicio$x=i;
-//                    Posicio$y=j;
-//                }
                 if(mapa[i][j]=='T'&&PosicioTx==0){
                     PosicioTx=i;
                     PosicioTy=j;
