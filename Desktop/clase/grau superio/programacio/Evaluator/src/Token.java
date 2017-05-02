@@ -72,8 +72,18 @@ public class Token {
 
     // Mètode equals. Comprova si dos objectes Token són iguals
     public boolean equals(Object o) {
+        if (o instanceof Token) {
+            Token to = (Token) o;
+            if(this.ttype == Toktype.NUMBER){
+                return this.value==to.value&&this.ttype == to.ttype;
+            }else if(this.ttype == Toktype.OP){
+                return this.tk == to.tk &&this.ttype == to.ttype;
+            }else if(this.ttype == Toktype.PAREN){
+                return this.tk == to.tk &&this.ttype == to.ttype;
+            }
 
-        return true;
+        }
+        return false;
     }
 
     // A partir d'un String, torna una llista de tokens
