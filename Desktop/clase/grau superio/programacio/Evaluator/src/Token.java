@@ -62,12 +62,10 @@ public class Token {
 
     // Mostra un token (conversió a String)
     public String toString() {
-        if(getValue()==0){
-            return ""+getTk();
-        }else {
-            return""+ getValue();
+        if(this.ttype == Toktype.NUMBER){
+            return String.valueOf(this.value);
         }
-
+        return String.valueOf(this.tk);
     }
 
     // Mètode equals. Comprova si dos objectes Token són iguals
