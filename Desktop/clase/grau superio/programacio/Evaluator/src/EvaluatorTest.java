@@ -65,6 +65,7 @@ public class EvaluatorTest {
         assertEquals(44, Evaluator.calculate("4*2+6*6"));
         assertEquals(-6, Evaluator.calculate("4+2*6-66/3"));
         assertEquals(152, Evaluator.calculate("78*4/3+87-7/3*7-8+5-23*1+4-65/10+6/2"));
+
     }
 
     @Test
@@ -75,5 +76,6 @@ public class EvaluatorTest {
         assertEquals(-48, Evaluator.calculate("((1+5)*4)/(3-4)*2"));
         assertEquals(-1, Evaluator.calculate("(((3-4)))"));
         assertEquals(-25, Evaluator.calculate("((5+34)*3-78+6)*1-(54+65/3+7-1000/(100-20))"));
+        assertEquals(45, Evaluator.calculate("((5+34)*3-78+6)"));
     }
 }

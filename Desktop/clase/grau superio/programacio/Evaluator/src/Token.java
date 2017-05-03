@@ -93,6 +93,9 @@ public class Token {
             for (int i = 0; i <s.length ; i++) {
                 if("-".equals(s[i])||"+".equals(s[i])||"*".equals(s[i])||"/".equals(s[i]) ){
                     result[i]=Token.tokOp(s[i].toCharArray()[0]);
+                }else if ("(".equals(s[i])||")".equals(s[i])){
+                    result[i]=Token.tokParen(s[i].toCharArray()[0]);
+
                 }else {
                     result[i]=Token.tokNumber( Integer.parseInt(s[i]));
                 }
@@ -113,7 +116,7 @@ public class Token {
 
                 }
                 char c =expr.charAt(i);
-                System.out.println(r);
+//                System.out.println(r);
                 if (r != ""){
                     resultat.add(Token.tokNumber(Integer.parseInt(r)));
                 }
