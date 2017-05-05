@@ -11,7 +11,7 @@ public class EvaluatorTest {
         Token[] tokens;
 
         tokens = new Token[]{Token.tokNumber(3), Token.tokNumber(5), Token.tokOp('+')};
-        System.out.println(Arrays.toString(tokens));
+
 
         assertEquals(8, Evaluator.calcRPN(tokens));
 
@@ -78,4 +78,11 @@ public class EvaluatorTest {
         assertEquals(-25, Evaluator.calculate("((5+34)*3-78+6)*1-(54+65/3+7-1000/(100-20))"));
         assertEquals(45, Evaluator.calculate("((5+34)*3-78+6)"));
     }
+    @Test
+    public void tests_expo() {
+        assertEquals(4, Evaluator.calculate("2^2"));
+        assertEquals(8, Evaluator.calculate("2^3"));
+        assertEquals(625, Evaluator.calculate("25^2"));
+    }
+
 }

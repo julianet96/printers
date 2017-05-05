@@ -1,10 +1,7 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.prefs.Preferences;
 
 public class Evaluator {
-
 
     public static int calculate(String expr) {
         LinkedList<Token> operants = new LinkedList<>();
@@ -17,7 +14,7 @@ public class Evaluator {
             }else if(tokens[i].getTtype()==Token.Toktype.OP){
                 if(operants.size()==0){
                     operants.add(tokens[i]);
-                }else if((operants.peek().getTk()=='-'||operants.peek().getTk()=='+')&&(tokens[i].getTk()=='-'||tokens[i].getTk()=='+')){
+                }else if(preferencia(tokens[i].getTk())==preferencia(operants.peek().getTk())&&preferencia(tokens[i].getTk())==1){
 
                     for (int j = operants.size(); j > 0 ; j--) {
                         if(operants.peek().getTk()!='('){
@@ -25,9 +22,9 @@ public class Evaluator {
                         }
                     }
                     operants.addFirst(tokens[i]);
-                }else if((operants.peek().getTk()=='-'||operants.peek().getTk()=='+')&&(tokens[i].getTk()=='*'||tokens[i].getTk()=='/')){
+                }else if(preferencia(operants.peek().getTk())< preferencia(tokens[i].getTk())){
                     operants.addFirst(tokens[i]);
-                }else if((operants.peek().getTk()=='*'||operants.peek().getTk()=='/')&&(tokens[i].getTk()=='+'||tokens[i].getTk()=='-')) {
+                }else if(preferencia(operants.peek().getTk())>preferencia(tokens[i].getTk())) {
 
                     for (int j = operants.size(); j > 0 ; j--) {
                         if(operants.peek().getTk()!='('){
@@ -35,13 +32,12 @@ public class Evaluator {
                         }
                     }
                     operants.addFirst(tokens[i]);
-                }else if((operants.peek().getTk()=='*'||operants.peek().getTk()=='/')&&(tokens[i].getTk()=='*'||tokens[i].getTk()=='/')) {
+                }else if(preferencia(tokens[i].getTk())==preferencia(operants.peek().getTk())) {
                     valors.add(operants.pop());
                     operants.addFirst(tokens[i]);
                 }else if(operants.peek().getTk()!='('||operants.peek().getTk()!=')') {
                     operants.addFirst(tokens[i]);
                 }
-
             }else if(tokens[i].getTtype()==Token.Toktype.PAREN){
                 if(tokens[i].getTk()=='('){
                     operants.addFirst(tokens[i]);
@@ -56,17 +52,16 @@ public class Evaluator {
                         }
                     }
                 }
-
             }
             if (i==tokens.length-1){
                 valors.addAll(operants);
             }
 
-
         }
+
         // Efectua el procediment per convertir la llista de tokens en notació RPN
         Token[] list = valors.toArray(new Token[valors.size()]);
-        System.out.println(Arrays.toString(list));
+
         // Finalment, crida a calcRPN amb la nova llista de tokens i torna el resultat
         return calcRPN(list);
     }
@@ -94,6 +89,8 @@ public class Evaluator {
                     case '/':
                         result = x/y;
                         break;
+                    case '^':
+                        result =(int) Math.pow(x,y);
                 }
                 Token[] resTok = new Token[]{Token.tokNumber(result)};
                 RPN.addFirst(resTok[0]);
@@ -103,7 +100,14 @@ public class Evaluator {
         return RPN.removeFirst().getValue();
         
     }
+    static int preferencia(char c){
+        if(c == '+'|| c=='-'){
+            return 1;
+        }else if(c=='*'||c=='/'){
+            return 2;
+        }else {
+            return 3;
+        }
 
-
-
+    }
 }

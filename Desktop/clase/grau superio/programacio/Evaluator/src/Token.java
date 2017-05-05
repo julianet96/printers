@@ -87,20 +87,6 @@ public class Token {
     // A partir d'un String, torna una llista de tokens
     public static Token[] getTokens(String expr) {
         Token[] result ;
-        if(expr.contains(" ")){
-            String[] s =expr.split(" ");
-             result = new Token[s.length];
-            for (int i = 0; i <s.length ; i++) {
-                if("-".equals(s[i])||"+".equals(s[i])||"*".equals(s[i])||"/".equals(s[i]) ){
-                    result[i]=Token.tokOp(s[i].toCharArray()[0]);
-                }else if ("(".equals(s[i])||")".equals(s[i])){
-                    result[i]=Token.tokParen(s[i].toCharArray()[0]);
-
-                }else {
-                    result[i]=Token.tokNumber( Integer.parseInt(s[i]));
-                }
-            }
-        }else{
 
             List<Token> resultat = new ArrayList<>();
             for (int i = 0; i <expr.length() ; i++) {
@@ -116,19 +102,17 @@ public class Token {
 
                 }
                 char c =expr.charAt(i);
-//                System.out.println(r);
+
                 if (r != ""){
                     resultat.add(Token.tokNumber(Integer.parseInt(r)));
                 }
-                if (c == '+'||c == '-'||c=='*'||c=='/'){
+                if (c == '+'||c == '-'||c=='*'||c=='/'||c=='^'){
                     resultat.add(Token.tokOp(c));
                 }else if (c=='('||c==')'){
                     resultat.add(Token.tokParen(c));
                 }
             }
             result= resultat.toArray(new Token[resultat.size()]) ;
-        }
-
         return result;
     }
 }
