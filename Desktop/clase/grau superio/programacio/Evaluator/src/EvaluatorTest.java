@@ -83,6 +83,8 @@ public class EvaluatorTest {
         assertEquals(4, Evaluator.calculate("2^2"));
         assertEquals(8, Evaluator.calculate("2^3"));
         assertEquals(625, Evaluator.calculate("25^2"));
+        assertEquals(627, Evaluator.calculate("2+(25^2)"));
+
     }
 
 }

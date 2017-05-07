@@ -9,7 +9,7 @@ public class Token {
     private Toktype ttype;
     private int value;
     private char tk;
-
+    // cream els geters i seters
     public void setValue(int value){
         this.value=value;
     }
@@ -70,12 +70,16 @@ public class Token {
 
     // Mètode equals. Comprova si dos objectes Token són iguals
     public boolean equals(Object o) {
+        // miram si es un token
         if (o instanceof Token) {
             Token to = (Token) o;
+            // si son numeros
             if(this.ttype == Toktype.NUMBER){
                 return this.value==to.value&&this.ttype == to.ttype;
+                // si son operants
             }else if(this.ttype == Toktype.OP){
                 return this.tk == to.tk &&this.ttype == to.ttype;
+                // si son parentesis
             }else if(this.ttype == Toktype.PAREN){
                 return this.tk == to.tk &&this.ttype == to.ttype;
             }
@@ -87,11 +91,12 @@ public class Token {
     // A partir d'un String, torna una llista de tokens
     public static Token[] getTokens(String expr) {
         Token[] result ;
-
+//          Cream una llista on anirem guardant els resultats
             List<Token> resultat = new ArrayList<>();
+//          mentres que quedin velos dedisn l'string
             for (int i = 0; i <expr.length() ; i++) {
                 String r = "";
-
+                // Comprovam si son numeros i els anam ficant dedisn un string anomenat resultat
                 while (expr.charAt(i)>='0'&&expr.charAt(i)<='9'){
                     r += expr.charAt(i);
                     if(i < expr.length()-1){
@@ -102,16 +107,19 @@ public class Token {
 
                 }
                 char c =expr.charAt(i);
-
+//                Si r no esta buit pasam a int el string i el cream un token com a numero
                 if (r != ""){
                     resultat.add(Token.tokNumber(Integer.parseInt(r)));
                 }
+                // si son operants cream el token com a op
                 if (c == '+'||c == '-'||c=='*'||c=='/'||c=='^'){
                     resultat.add(Token.tokOp(c));
+//                    Si es un parentesis el pasam com a token parner
                 }else if (c=='('||c==')'){
                     resultat.add(Token.tokParen(c));
                 }
             }
+//            Pasam el resultat de la llista a Array de tokens i el retornam
             result= resultat.toArray(new Token[resultat.size()]) ;
         return result;
     }
